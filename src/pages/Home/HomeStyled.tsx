@@ -94,6 +94,14 @@ const HomeStyled = styled.div`
       border: 1px solid #00d660;
     }
   }
+
+  .bg-modal {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: #33333354;
+    backdrop-filter: blur(1px);
+  }
 `;
 
 export default HomeStyled;

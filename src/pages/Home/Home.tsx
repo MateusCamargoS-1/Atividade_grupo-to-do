@@ -84,26 +84,28 @@ const Home = () => {
         ))}
       </div>
       {!showModal && (
-        <div className="form">
-          <div className="btn-close">
-            <ButtonDefault label="X" action={() => abrirModal(true)} />
+        <div className="bg-modal">
+          <div className="form">
+            <div className="btn-close">
+              <ButtonDefault label="X" action={() => abrirModal(true)} />
+            </div>
+            <form onSubmit={handleClick}>
+              <h1>Nova Tarefa</h1>
+              <InputDefault
+                type="text"
+                name="titulo"
+                label="Titulo"
+                action={setTitulo}
+              />
+              <InputDefault
+                type="text"
+                name="descricao"
+                label="Descrição"
+                action={setDescricao}
+              />
+              <ButtonDefault type="submit" label="Adicionar"></ButtonDefault>
+            </form>
           </div>
-          <form onSubmit={handleClick}>
-            <h1>Nova Tarefa</h1>
-            <InputDefault
-              type="text"
-              name="titulo"
-              label="Titulo"
-              action={setTitulo}
-            />
-            <InputDefault
-              type="text"
-              name="descricao"
-              label="Descrição"
-              action={setDescricao}
-            />
-            <ButtonDefault type="submit" label="Adicionar"></ButtonDefault>
-          </form>
         </div>
       )}
     </HomeStyled>
