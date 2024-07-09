@@ -1,8 +1,9 @@
 interface InputProps {
-    label: string;
+    label?: string;
     name: string;
     type?: string; 
-    action: (value: string) => void;
+    action: (value: any) => void;
+    checked?: boolean;
 }
 
 const InputDefault = ({label, type, name, action}: InputProps) => {
