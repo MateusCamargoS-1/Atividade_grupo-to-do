@@ -1,30 +1,51 @@
-# React + TypeScript + Vite
+# Lista de Tarefas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma aplicação simples de lista de tarefas desenvolvida com React.
 
-Currently, two official plugins are available:
+[Deploy do projeto](https://atv-grupo-mat-cris.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Descrição
 
-## Expanding the ESLint configuration
+Esta aplicação permite aos usuários adicionar, marcar como concluídas, e excluir tarefas. As tarefas são salvas no `localStorage`, garantindo que permaneçam disponíveis mesmo após a página ser recarregada.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Funcionalidades
 
-- Configure the top-level `parserOptions` property like this:
+- Adicionar novas tarefas com título e descrição
+- Marcar tarefas como concluídas
+- Excluir tarefas
+- Exibição de uma mensagem de carregamento enquanto as tarefas são carregadas
+- Exibição de uma mensagem "Nenhuma Tarefa" quando não houver tarefas
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Tecnologias Utilizadas
+
+- React
+- TypeScript
+- Styled Components
+
+## Instalação
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/MateusCamargoS-1/Atividade_grupo-to-do.git
+````
+
+2. Navegue até o diretório do projeto:
+```bash
+cd Atividade_grupo-to-do
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Instale as dependências:
+```bash
+npm install
+```
+
+4. Inicie a aplicação:
+```bash
+npm run dev
+```
+A aplicação estara disponivel em `http://localhost:5173/`
+
+## Autores
+ - Mateus
+ - Cristiane
