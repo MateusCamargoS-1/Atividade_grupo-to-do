@@ -2,13 +2,14 @@ interface InputProps {
     label?: string;
     name: string;
     type?: string; 
+    value?: string;
     action: (value: any) => void;
     checked?: boolean;
 }
 
-const InputDefault = ({label, type, name, action}: InputProps) => {
+const InputDefault = ({label, type, value, name, action}: InputProps) => {
     return (
-        <input type={type} placeholder={label} name={name} onChange={(e) => action(e.target.value)}/>
+        <input type={type} value={value} placeholder={label} name={name} onChange={(e) => action(e.target.value)}/>
     );
 }
 

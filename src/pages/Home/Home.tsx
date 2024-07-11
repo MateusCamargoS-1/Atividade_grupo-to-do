@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HomeStyled from "./HomeStyled";
 import TarefaType from "../../types/TarefaType";
 import ButtonDefault from "../../components/ButtonDefault/ButtonDefault";
@@ -9,7 +9,29 @@ const Home = () => {
   const [titulo, setTitulo] = useState<string>("");
   const [descricao, setDescricao] = useState<string>("");
   const [tarefas, setTarefas] = useState<TarefaType[]>([]);
-  const [showModal, setShowModal] = useState<boolean>(true);
+  const [message, setMessage] = useState<string>("Carregando...");
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    const tarefasSalvas = localStorage.getItem("tarefas");
+    if (tarefasSalvas) {
+      setTarefas(JSON.parse(tarefasSalvas));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
+  }, [tarefas]);
+
+  useEffect(() => {
+    if (tarefas.length === 0) {
+      setTimeout(() => {
+        setMessage("Nenhuma Tarefa");
+      }, 2000);
+    } else {
+      setMessage("");
+    }
+  }, [tarefas]);
 
   const handleClick = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -22,7 +44,9 @@ const Home = () => {
     const tarefa = [...tarefas, novaTarefa];
     setTarefas(tarefa);
 
-    abrirModal(true);
+    setTitulo("");
+    setDescricao("");
+    abrirModal(false);
   };
 
   const abrirModal = (valor: boolean) => {
@@ -48,7 +72,7 @@ const Home = () => {
       </Header>
       <div className="add-qtd">
         <ButtonDefault
-          action={() => abrirModal(false)}
+          action={() => abrirModal(true)}
           label="Adicionar Tarefa"
         ></ButtonDefault>
 
@@ -57,37 +81,41 @@ const Home = () => {
         </div>
       </div>
       <div className="lista-tarefa">
-        {tarefas.map((tarefa, index) => (
-          <li
-            key={index}
-            className={`tarefa ${tarefa.checked ? "checked" : ""}`}
-          >
-            <div className="info-tarefa">
-              <div className="check">
-                <InputDefault
-                  type="checkbox"
-                  name="concluido"
-                  action={() => checked(index)}
-                  checked={tarefa.checked}
-                />
+        {message ? (
+          <h2 className="message">{message}</h2>
+        ) : (
+          tarefas.map((tarefa, index) => (
+            <li
+              key={index}
+              className={`tarefa ${tarefa.checked ? "checked" : ""}`}
+            >
+              <div className="info-tarefa">
+                <div className="check">
+                  <InputDefault
+                    type="checkbox"
+                    name="concluido"
+                    action={() => checked(index)}
+                    checked={tarefa.checked}
+                  />
+                </div>
+                <div>
+                  <h2>{tarefa.titulo}</h2>
+                  <p>{tarefa.descricao}</p>
+                </div>
               </div>
-              <div>
-                <h2>{tarefa.titulo}</h2>
-                <p>{tarefa.descricao}</p>
-              </div>
-            </div>
-            <ButtonDefault
-              action={() => deletarTarefa(tarefa.titulo)}
-              label="Excluir"
-            ></ButtonDefault>
-          </li>
-        ))}
+              <ButtonDefault
+                action={() => deletarTarefa(tarefa.titulo)}
+                label="Excluir"
+              ></ButtonDefault>
+            </li>
+          ))
+        )}
       </div>
-      {!showModal && (
+      {showModal && (
         <div className="bg-modal">
           <div className="form">
             <div className="btn-close">
-              <ButtonDefault label="X" action={() => abrirModal(true)} />
+              <ButtonDefault label="X" action={() => abrirModal(false)} />
             </div>
             <form onSubmit={handleClick}>
               <h1>Nova Tarefa</h1>
@@ -95,12 +123,14 @@ const Home = () => {
                 type="text"
                 name="titulo"
                 label="Titulo"
+                value={titulo}
                 action={setTitulo}
               />
               <InputDefault
                 type="text"
                 name="descricao"
                 label="Descrição"
+                value={descricao}
                 action={setDescricao}
               />
               <ButtonDefault type="submit" label="Adicionar"></ButtonDefault>

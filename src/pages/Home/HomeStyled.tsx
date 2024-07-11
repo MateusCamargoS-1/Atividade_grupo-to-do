@@ -25,6 +25,13 @@ const HomeStyled = styled.div`
 
   .lista-tarefa {
     width: 100%;
+
+    .message {
+      text-align: center;
+      margin-top: 50px;
+      color: #ffffff38;
+      font-size: 2em;
+    }
   }
 
   .tarefa {
